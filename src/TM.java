@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -127,8 +128,8 @@ public class TM {
 	 */
 	void cmdSummary(TaskLog log) throws FileNotFoundException {
 		//System.out.println("WHOLE SUMMARY");
-		LinkedList<ArrayList<String>> allLines = log.readFile();
-		java.util.Iterator<ArrayList<String>> it = allLines.iterator();
+		LinkedList<TaskLogEntry> allLines = log.readFile();
+		Iterator<TaskLogEntry> it = allLines.iterator();
 		while(it.hasNext())
 			System.out.println(it.next());        // For testing   
 		
@@ -144,8 +145,9 @@ public class TM {
 	void cmdSummary(TaskLog log, String task) throws FileNotFoundException {
 		//System.out.println("SINGLE SUMMARY");
 		String descript = null;
-		LinkedList<ArrayList<String>> allLines = log.readFile();
+		LinkedList<TaskLogEntry> allLines = log.readFile();
 		
+		/* XXXXXXXX ABANDON XXXXXXXXXXXXXXXXXXXXx
 		// Get description
 		for (int i = 0; i < allLines.size(); i++) {
 			if (allLines.get(i).get(1).equals(task) && allLines.get(i).get(2).equals("describe"))
@@ -164,6 +166,9 @@ public class TM {
 		}
 		//start = get(
 		//duration = finish.minus(start);
+		 * 
+		 * 
+		 */
 		
 		// Print summary
 		System.out.println("\nSummary for task:\t|  " + task);
@@ -190,7 +195,7 @@ public class TM {
 		 * Constructor, creates file I/O objects
 		 */
 		public TaskLog() throws IOException{
-			fwriter = new FileWriter("TMlog.txt", true);
+			fwriter = new FileWriter("TM.txt", true);
 			outputFile = new PrintWriter(fwriter);
 		}
 		
@@ -210,37 +215,67 @@ public class TM {
 		 * @return LinkedList holding ArrayList corresponding to each line in the log, with each token in the line stored as an element of the ArrayList
 		 * @throws FileNotFoundException
 		 */
-		LinkedList<ArrayList<String>> readFile() throws FileNotFoundException {
+		LinkedList<TaskLogEntry> readFile() throws FileNotFoundException {
 			
-			// Create LinkedList of ArrayList of Strings to hold each token in each line
-			LinkedList<ArrayList<String>> lineList = new LinkedList<ArrayList<String>>();
+			// Create LinkedList of TaskLogEntry objects to hold each entry in log file
+			LinkedList<TaskLogEntry> lineList = new LinkedList<TaskLogEntry>();
 			
 			// Open file for reading
-			File logFile = new File("TMlog.txt");
+			File logFile = new File("TM.txt");
 			Scanner inputFile = new Scanner(logFile);
 			
 			// Process each line in the string
 			String inLine;
 			while(inputFile.hasNextLine()) {
-				
-				// Create an ArrayList for each line in the log
-				ArrayList<String> eachLine = new ArrayList<String>();
+				TaskLogEntry entry = new TaskLogEntry();
 				inLine = inputFile.nextLine();
-				
-				// Add each token in a line to its own element of the ArrayList
 				StringTokenizer st = new StringTokenizer(inLine, "/");
-				while (st.hasMoreTokens()) {
-					eachLine.add(st.nextToken());
-				}
+				entry.timeStamp = LocalDateTime.parse(st.nextToken());
+				entry.taskName = st.nextToken();
+				entry.cmd = st.nextToken();
+				// If there are more than 3 tokens, 4th token is description
+				if (st.hasMoreTokens())
+					entry.description = st.nextToken();
 				
-				// Add the ArrayList to the LinkedList
-				lineList.add(eachLine);
-				
-				/*for (String tkn : eachLine)
-					System.out.println(tkn + "#");           // For testing purposes*/ 
+				// Add entry to LinkedList
+				lineList.add(entry);
 			}
 			
+			// Close Scanner and return LinkedList
+			inputFile.close();
 			return lineList;
+		}
+	}
+	
+	/**
+	 * The TaskLogEntry class holds information for a single entry in a TaskLog
+	 */
+	class TaskLogEntry {
+		String cmd;
+		String taskName;
+		String description;
+		LocalDateTime timeStamp;
+		
+	}
+	
+	/**
+	 * The TimeUtilities class contains utilities for working with time related data
+	 */
+	class TimeUtilities {
+		
+		/**
+		 * The secondsFormatter method converts seconds to the HH:MM:SS format
+		 * @param secondsToFormat The number of seconds to convert
+		 * @return String containing time in HH:MM:SS format
+		 */
+		String secondsFormatter(long secondsToFormat) {
+			
+			long hours = (secondsToFormat / 3600);
+			long minutes = ((secondsToFormat % 3600) / 60);
+			long seconds = (secondsToFormat % 60);
+			String formattedTime = (String.format("%02d:%02d:%02d", hours, minutes, seconds));
+			return formattedTime;
+			
 		}
 	}
 }

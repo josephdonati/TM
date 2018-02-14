@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 /**
- * The TM class allows a user to track time worked on multiple tasks, and print summaries of the time worked.
+ * The TM app allows a user to track time worked on multiple tasks, and print summaries of the time worked.
  * 
  * Joseph Donati - CSUS - CSC131-03 - Sprint 2 - 2/14/2018 - Professor D. Posnett
  */
@@ -133,14 +133,17 @@ public class TM {
 		
 		// Gather all task names from log entries, store in Tree Set. Tree set will sort tasks and prevent duplicate summaries for a single task.
 		TreeSet<String> names = new TreeSet<String>();
+		long totalTime = 0;
 		for (TaskLogEntry entry : allLines){
 			names.add(entry.taskName);	
 		}
 		
 		// Display each summary individually
+		System.out.println("\n--------------------| TASK LOG |--------------------");
 		for (String name : names) {
-			cmdSummary(log, name);
+			totalTime += cmdSummary(log, name);
 		}
+		System.out.println("\n---------------------------------------------------- \nTotal time\t\t|" + TimeUtilities.secondsFormatter(totalTime));
 	}
 	
 	/**
@@ -149,7 +152,7 @@ public class TM {
 	 * @param task The individual task to provide summary for
 	 * @throws FileNotFoundException
 	 */
-	void cmdSummary(TaskLog log, String task) throws FileNotFoundException {
+	long cmdSummary(TaskLog log, String task) throws FileNotFoundException {
 
 		// Read log file, gather entries
 		LinkedList<TaskLogEntry> allLines = log.readFile();
@@ -159,6 +162,7 @@ public class TM {
 		
 		// Display 
 		System.out.println(taskToSummarize.toString());
+		return taskToSummarize.totalTime;
 		
 	}
 	
@@ -269,6 +273,7 @@ public class TM {
 		private String name;
 		private String description;
 		private String formattedTime = null;
+		private long totalTime = 0;
 		
 		/**
 		 * Constructor runs and gathers all task data from log entries
@@ -299,8 +304,9 @@ public class TM {
 					}
 				}
 			}
-			// Format the elapsed time, parse to String
+			// Format the elapsed time, parse to String, store long time for cmdSummary
 			this.formattedTime = TimeUtilities.secondsFormatter(timeElapsed);
+			this.totalTime = timeElapsed;
 		}
 		
 		public String toString() {

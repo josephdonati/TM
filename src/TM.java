@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 /**
  * The TM class allows a user to track time worked on multiple tasks, and print summaries of the time worked.
  * 
- * Joseph Donati - CSUS - CSC131-03 - Sprint 1 - 2/4/2018 - Professor D. Posnett
+ * Joseph Donati - CSUS - CSC131-03 - Sprint 2 - 2/14/2018 - Professor D. Posnett
  */
 public class TM {
 	// main only used to pass args to appMain, gets rid of static issues
@@ -120,19 +120,27 @@ public class TM {
 		log.writeLine(line);
 	}
 	
-	//NOTE: THIS METHOD UNFINISHED
+	
 	/**
 	 * The cmdSummary method prints a summary of all tasks in log
 	 * @param log The TaskLog object wrapping the persistent log
 	 * @throws FileNotFoundException
 	 */
 	void cmdSummary(TaskLog log) throws FileNotFoundException {
-		//System.out.println("WHOLE SUMMARY");
-		LinkedList<TaskLogEntry> allLines = log.readFile();
-		Iterator<TaskLogEntry> it = allLines.iterator();
-		while(it.hasNext())
-			System.out.println(it.next());        // For testing   
 		
+		// Read log file, gather entries
+		LinkedList<TaskLogEntry> allLines = log.readFile();
+		
+		// Gather all task names from log entries, store in Tree Set. Tree set will sort tasks and prevent duplicate summaries for a single task.
+		TreeSet<String> names = new TreeSet<String>();
+		for (TaskLogEntry entry : allLines){
+			names.add(entry.taskName);	
+		}
+		
+		// Display each summary individually
+		for (String name : names) {
+			cmdSummary(log, name);
+		}
 	}
 	
 	/**
@@ -275,7 +283,7 @@ public class TM {
 			long timeElapsed = 0;
 			
 			
-			for (TaskLogEntry entry: entries){
+			for (TaskLogEntry entry : entries){
 				if (entry.taskName.equals(name)) {
 					switch (entry.cmd) {
 					case "start":
@@ -313,5 +321,19 @@ public class TM {
 	}
 }
 
-// Could add in summary: Ability to show if still recording task, e.g. Start read in with no Stop after (boolean isRunning on with start, off with stop?)
+//JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJoe's Notesssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+//
+//-Currently, when there is no stop after a start, no time is recorded.
+//---Could add in summary: Ability to show if still recording task, e.g. Start read in with no Stop after (boolean isRunning on with start, off with stop?)
+//-----App could notice this, add time from lastStart to current time (from time, not from log...)
+//
+//
+//-If you request a summary of a task which is not in log, it only shows summary with provided task name, "null" description and 00:00:00 for time
+//---Could print notice ("No such task...") 
+//
+//
+//-If multiple descriptions are entered, only most recent is used
+
+
+
 

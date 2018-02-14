@@ -11,3 +11,5 @@
 2018-02-13T21:19:15.713/test2/stop
 2018-02-13T21:20:30.741/test3/describe/It's working, horray!
 2018-02-13T21:23:09.412/test3/stop
+2018-02-13T22:04:41.470/test3/describe/Second entry for test 3
+2018-02-13T22:25:18.349/test4/start

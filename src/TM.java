@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -32,7 +32,7 @@ public class TM {
 		String taskName;
 		String description;
 		
-		// Create TaskLog to interact with persistant log
+		// Create TaskLog to interact with persistent log
 		TaskLog log = new TaskLog();
 		
 		// Create object to pull time codes
@@ -135,7 +135,6 @@ public class TM {
 		
 	}
 	
-	//NOTE: THIS METHOD UNFINISHED
 	/**
 	 * The cmdSummary method prints a summary of a task from log
 	 * @param log The TaskLog object wrapping the persistent log
@@ -143,37 +142,15 @@ public class TM {
 	 * @throws FileNotFoundException
 	 */
 	void cmdSummary(TaskLog log, String task) throws FileNotFoundException {
-		//System.out.println("SINGLE SUMMARY");
-		String descript = null;
+
+		// Read log file, gather entries
 		LinkedList<TaskLogEntry> allLines = log.readFile();
 		
-		/* XXXXXXXX ABANDON XXXXXXXXXXXXXXXXXXXXx
-		// Get description
-		for (int i = 0; i < allLines.size(); i++) {
-			if (allLines.get(i).get(1).equals(task) && allLines.get(i).get(2).equals("describe"))
-				descript = allLines.get(i).get(3);
-		}
+		// Create Task object based on task name, with entries from log
+		Task taskToSummarize = new Task(task, allLines);
 		
-		// Get duration (Was in progress, ran out of time beforw I could make this work)
-		LocalDateTime start, finish, duration;
-		for (int i = 0; i < allLines.size(); i++) {
-			if (allLines.get(i).get(1).equals(task) && allLines.get(i).get(2).equals("start"))
-				start = LocalDateTime.parse(allLines.get(i).get(0));	
-		}
-		for (int i = 0; i < allLines.size(); i++) {
-			if (allLines.get(i).get(1).equals(task) && allLines.get(i).get(2).equals("stop"))
-				finish = LocalDateTime.parse(allLines.get(i).get(0));
-		}
-		//start = get(
-		//duration = finish.minus(start);
-		 * 
-		 * 
-		 */
-		
-		// Print summary
-		System.out.println("\nSummary for task:\t|  " + task);
-		System.out.println("Description:\t\t|  " + descript);
-		System.out.println("Duration:\t\t|  (TIME)");
+		// Display 
+		System.out.println(taskToSummarize.toString());
 		
 	}
 	
@@ -261,14 +238,14 @@ public class TM {
 	/**
 	 * The TimeUtilities class contains utilities for working with time related data
 	 */
-	class TimeUtilities {
+	static class TimeUtilities {
 		
 		/**
 		 * The secondsFormatter method converts seconds to the HH:MM:SS format
 		 * @param secondsToFormat The number of seconds to convert
 		 * @return String containing time in HH:MM:SS format
 		 */
-		String secondsFormatter(long secondsToFormat) {
+		 static String secondsFormatter(long secondsToFormat) {
 			
 			long hours = (secondsToFormat / 3600);
 			long minutes = ((secondsToFormat % 3600) / 60);
@@ -278,5 +255,63 @@ public class TM {
 			
 		}
 	}
+	
+	class Task {
+		// Each task can be identified by name
+		private String name;
+		private String description;
+		private String formattedTime = null;
+		
+		/**
+		 * Constructor runs and gathers all task data from log entries
+		 * @param name The name of the task
+		 * @param entries The list of entries in the log
+		 */
+		public Task(String name, LinkedList<TaskLogEntry> entries) {
+			// Initialize necessary variables 
+			this.name = name;
+			this.description = null;
+			LocalDateTime lastStart = null;
+			long timeElapsed = 0;
+			
+			
+			for (TaskLogEntry entry: entries){
+				if (entry.taskName.equals(name)) {
+					switch (entry.cmd) {
+					case "start":
+						lastStart = entry.timeStamp;
+						break;
+					case "stop":
+						if (lastStart != null) 
+							timeElapsed += calculateDuration(lastStart, entry.timeStamp);
+						lastStart = null;
+						break;
+					case "describe": 
+						description = entry.description;
+					}
+				}
+			}
+			// Format the elapsed time, parse to String
+			this.formattedTime = TimeUtilities.secondsFormatter(timeElapsed);
+		}
+		
+		public String toString() {
+			String str = ("\nSummary for task:\t| " + this.name + "\nDescription:\t\t| " + this.description + "\nDuration\t\t| " + this.formattedTime);
+			return str;
+		}
+		
+		/**
+		 * The calculateDuration method calculates the duration between to LocalDateTime time stamps
+		 * @param startTime The start time
+		 * @param stopTime The start time
+		 * @return The number of seconds elapsed between start/stop stamps
+		 */
+		long calculateDuration(LocalDateTime startTime, LocalDateTime stopTime) {
+			long duration = ChronoUnit.SECONDS.between(startTime, stopTime);
+			return duration;
+		}
+	}
 }
+
+// Could add in summary: Ability to show if still recording task, e.g. Start read in with no Stop after (boolean isRunning on with start, off with stop?)
 

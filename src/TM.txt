@@ -1,8 +1,13 @@
-2018-02-12T10:52:10.082/testTask1/start
-2018-02-12T10:52:15.050/testTask2/start
-2018-02-12T10:52:23.119/testTask2/stop
-2018-02-12T10:52:35.485/Sprint1/start
-2018-02-12T10:53:21.450/Sprint1/describe/Finishing Sprint 1 to be able to work on Sprint 2
-2018-02-13T14:36:09.842/Sprint1/stop
-2018-02-13T14:36:17.810/Sprint1/start
-2018-02-13T14:36:19.652/Sprint1/stop
+2018-02-11T21:17:41.655/test1/start
+2018-02-13T20:12:44.311/test2/start
+2018-02-13T11:15:46.782/test3/start
+2018-02-13T21:17:56.921/test2/stop
+2018-02-13T21:18:33.333/test2/describe/The second test dude!
+2018-02-13T21:18:43.480/test1/describe/The first test dude!
+2018-02-13T21:19:00.776/test3/stop
+2018-02-13T21:19:03.377/test1/stop
+2018-02-13T21:19:08.549/test3/start
+2018-02-13T21:19:11.343/test2/start
+2018-02-13T21:19:15.713/test2/stop
+2018-02-13T21:20:30.741/test3/describe/It's working, horray!
+2018-02-13T21:23:09.412/test3/stop

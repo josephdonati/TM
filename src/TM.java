@@ -284,7 +284,8 @@ public class TM {
 	class Task {
 		// Each task can be identified by name
 		private String name;
-		private String description;
+		private StringBuilder description = new StringBuilder("");
+		//private String description;
 		private String shirtSize;
 		private String formattedTime = null;
 		private long totalTime = 0;
@@ -297,7 +298,6 @@ public class TM {
 		public Task(String name, LinkedList<TaskLogEntry> entries) {
 			// Initialize necessary variables 
 			this.name = name;
-			this.description = null;
 			LocalDateTime lastStart = null;
 			long timeElapsed = 0;
 			
@@ -314,8 +314,12 @@ public class TM {
 						lastStart = null;
 						break;
 					case "describe": 
-						description = entry.data1;
-						// Only update shirtSize if not empty
+						if (description.toString().equals(""))
+							description.append(entry.data1);
+						else
+							description.append("\n\t\t\t| " + entry.data1);
+						
+						// Only update shirtSize if not empty to prevent unwanted update
 						if (entry.data2 != null)
 							shirtSize = entry.data2;
 						break;

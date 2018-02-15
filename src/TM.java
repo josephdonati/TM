@@ -1,5 +1,3 @@
-//dir for CD in command line//  C:\Users\josep\Google Drive\School\SPRING 2018\Software Engineering CSC-131\Time Manag\src
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -123,8 +121,11 @@ public class TM {
 	 */
 	void cmdDescribe(String taskName, TaskLog log, String cmd, LocalDateTime currentTime, String data1, String data2) throws IOException {
 		String line;
+		
+		// If data2 is provided, write all data
 		if(data2 != null)
 			line = (currentTime + "/" + taskName + "/" + cmd + "/" + data1 + "/" + data2);
+		// If data2 not provided, only write data 1
 		else
 			line = (currentTime + "/" + taskName + "/" + cmd + "/" + data1);
 		log.writeLine(line);
@@ -149,11 +150,11 @@ public class TM {
 		}
 		
 		// Display each summary individually
-		System.out.println("\n--------------------| TASK LOG |--------------------");
+		System.out.println("\n--------------------------------------| TASK LOG |--------------------------------------");
 		for (String name : names) {
 			totalTime += cmdSummary(log, name);
 		}
-		System.out.println("\n---------------------------------------------------- \nTotal time\t\t|" + TimeUtilities.secondsFormatter(totalTime));
+		System.out.println("\n---------------------------------------------------------------------------------------- \nTotal time\t\t|" + TimeUtilities.secondsFormatter(totalTime));
 	}
 	
 	/**
@@ -333,6 +334,9 @@ public class TM {
 			this.totalTime = timeElapsed;
 		}
 		
+		/**
+		 * Provides string of formatted output for Task
+		 */
 		public String toString() { 
 			String str = ("\nSummary for task:\t| " + this.name + "\nDescription:\t\t| " + this.description + "\nSize:\t\t\t| " + this.shirtSize + "\nDuration\t\t| " + this.formattedTime);
 			return str;
@@ -351,18 +355,7 @@ public class TM {
 	}
 }
 
-//JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJoe's Notesssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-//
-//-Currently, when there is no stop after a start, no time is recorded.
-//---Could add in summary: Ability to show if still recording task, e.g. Start read in with no Stop after (boolean isRunning on with start, off with stop?)
-//-----App could notice this, add time from lastStart to current time (from time, not from log...)
-//
-//
-//-If you request a summary of a task which is not in log, it only shows summary with provided task name, "null" description and 00:00:00 for time
-//---Could print notice ("No such task...") 
-//
-//
-//-If multiple descriptions are entered, only most recent is used
+
 
 
 

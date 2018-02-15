@@ -30,7 +30,7 @@ public class TM {
 		// Declare variables
 		String cmd;
 		String taskName;
-		String description;
+		String data1, data2 = null;   // Ignore data2, having problems...
 		
 		// Create TaskLog to interact with persistent log
 		TaskLog log = new TaskLog();
@@ -41,22 +41,25 @@ public class TM {
 		// Rule out unacceptable usage, if incorrect display usage instructions
 		try {		
 			cmd = args[0];
-			if (args.length < 2 && cmd.equals("summary"))
+			if (args.length < 2)
 				taskName = null;
 			else 
 				taskName = args[1];
-			if (args[0].equals("describe")) {
-					description = args[2];
+			if (args[0].equals("describe") || args[0].equals("size")) {
+				data1 = args[2];
+				if (args.length == 4)
+					data2 = args[3];				
 			}
 			else 
-				description = null;		
+				data1 = null;		
 		}
 		catch (ArrayIndexOutOfBoundsException ex) {
 			// Usage instructions
 			System.out.println("Usage:");
 			System.out.println("\tTM start <task name>");
 			System.out.println("\tTM stop <task name>");
-			System.out.println("\tTM describe <task name> <task description in quotes>");
+			System.out.println("\tTM describe <task name> <task description in quotes> <(optional)task size XS-XXL>");
+			System.out.println("\tTM size <task name> <task size XS-XXL>");
 			System.out.println("\tTM summary <task name>");
 			System.out.println("\tTM summary");
 			return;
@@ -68,7 +71,9 @@ public class TM {
 						break;
 			case "start": cmdStart(taskName, log, cmd, currentTime);
 						break;
-			case "describe": cmdDescribe(taskName, log, cmd, currentTime, description);
+			case "describe": cmdDescribe(taskName, log, cmd, currentTime, data1, data2);
+						break;
+			case "size": cmdDescribe(taskName, log, cmd, currentTime, data1, data2);
 						break;
 			case "summary": if (taskName == null)
 								cmdSummary(log);
@@ -112,11 +117,16 @@ public class TM {
 	 * @param log The TaskLog object wrapping the persistent log
 	 * @param cmd The command supplied by the user
 	 * @param currentTime The current time at log entry
+	 * @param data2 
 	 * @param description The description of the task provided by the user
 	 * @throws IOException
 	 */
-	void cmdDescribe(String taskName, TaskLog log, String cmd, LocalDateTime currentTime, String description) throws IOException {
-		String line = (currentTime + "/" + taskName + "/" + cmd + "/" + description);
+	void cmdDescribe(String taskName, TaskLog log, String cmd, LocalDateTime currentTime, String data1, String data2) throws IOException {
+		String line;
+		if(data2 != null)
+			line = (currentTime + "/" + taskName + "/" + cmd + "/" + data1 + "/" + data2);
+		else
+			line = (currentTime + "/" + taskName + "/" + cmd + "/" + data1);
 		log.writeLine(line);
 	}
 	
@@ -222,9 +232,11 @@ public class TM {
 				entry.timeStamp = LocalDateTime.parse(st.nextToken());
 				entry.taskName = st.nextToken();
 				entry.cmd = st.nextToken();
-				// If there are more than 3 tokens, 4th token is description
+				// If cmd is describe, data is description, if cmd is size, data is size.
 				if (st.hasMoreTokens())
-					entry.description = st.nextToken();
+					entry.data1 = st.nextToken();
+				if (st.hasMoreTokens())
+					entry.data2 = st.nextToken();
 				
 				// Add entry to LinkedList
 				lineList.add(entry);
@@ -242,7 +254,8 @@ public class TM {
 	class TaskLogEntry {
 		String cmd;
 		String taskName;
-		String description;
+		String data1;
+		String data2;
 		LocalDateTime timeStamp;
 		
 	}
@@ -272,6 +285,7 @@ public class TM {
 		// Each task can be identified by name
 		private String name;
 		private String description;
+		private String shirtSize;
 		private String formattedTime = null;
 		private long totalTime = 0;
 		
@@ -300,7 +314,13 @@ public class TM {
 						lastStart = null;
 						break;
 					case "describe": 
-						description = entry.description;
+						description = entry.data1;
+						// Only update shirtSize if not empty
+						if (entry.data2 != null)
+							shirtSize = entry.data2;
+						break;
+					case "size": 
+						shirtSize = entry.data1;
 					}
 				}
 			}
@@ -309,8 +329,8 @@ public class TM {
 			this.totalTime = timeElapsed;
 		}
 		
-		public String toString() {
-			String str = ("\nSummary for task:\t| " + this.name + "\nDescription:\t\t| " + this.description + "\nDuration\t\t| " + this.formattedTime);
+		public String toString() { 
+			String str = ("\nSummary for task:\t| " + this.name + "\nDescription:\t\t| " + this.description + "\nSize:\t\t\t| " + this.shirtSize + "\nDuration\t\t| " + this.formattedTime);
 			return str;
 		}
 		

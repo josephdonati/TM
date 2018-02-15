@@ -5,3 +5,11 @@
 2018-02-13T22:44:14.867/fix1/describe/Fixing a small error from Sprint 1
 2018-02-13T22:59:13.170/fix1/stop
 2018-02-13T22:59:21.110/size/start
+2018-02-13T23:17:50.093/size/size/M
+2018-02-14T10:19:20.793/size/start
+2018-02-14T16:25:58.287/fix1/size/XXL
+2018-02-14T16:26:36.814/fix1/describe/Please God
+2018-02-14T16:31:08.338/fix1/describe/Descript only
+2018-02-14T16:33:51.490/size/size/XXL
+2018-02-14T16:34:27.509/size/describe/anal fissures from coding
+2018-02-14T16:35:01.048/size/describe/Holy moly/XS

@@ -24,3 +24,6 @@
 2018-02-14T21:16:41.569/codeCleanup/start
 2018-02-14T21:17:36.074/codeCleanup/describe/Commenting code, cleaning up notes, completing design document/S
 2018-02-14T22:18:43.740/codeCleanup/stop
+2018-03-05T10:56:20.707/refactor/start
+2018-03-05T10:56:59.994/refactor/describe/Sprint 3: Dividing TM.java into TM and TMModel
+2018-03-05T11:01:44.687/refactor/describe/Implementing ITMModel

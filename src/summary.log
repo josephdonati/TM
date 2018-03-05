@@ -1,0 +1,28 @@
+
+--------------------------------------| TASK LOG |--------------------------------------
+
+Summary for task:	| codeCleanup
+Description:		| Commenting code, cleaning up notes, completing design document
+Size:			| S
+Duration		| 01:02:02
+
+Summary for task:	| descriptionExpand
+Description:		| Sprint 2: Adding feature to allow expanded descriptions
+			| Muliple description entries are now all displayed
+Size:			| M
+Duration		| 00:34:26
+
+Summary for task:	| fix1
+Description:		| Fixing a small error from Sprint 1
+Size:			| S
+Duration		| 00:15:35
+
+Summary for task:	| size
+Description:		| Sprint 2: Adding tshirt size descriptor to TM
+			| Added new size command
+			| Modified describe command to also accept size
+Size:			| XL
+Duration		| 02:31:59
+
+---------------------------------------------------------------------------------------- 
+Total time		|04:24:02

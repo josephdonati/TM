@@ -18,7 +18,7 @@ import java.util.TreeSet;
 public class TMSP2 {
 	// main only used to pass args to appMain, gets rid of static issues
 	public static void main(String [] args) throws IOException {
-		TM tm = new TM();
+		TMSP2 tm = new TMSP2();
 		tm.appMain(args);
 	}
 	
@@ -354,9 +354,3 @@ public class TMSP2 {
 		}
 	}
 }
-
-
-
-
-
-

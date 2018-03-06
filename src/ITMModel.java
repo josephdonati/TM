@@ -4,18 +4,18 @@ public interface ITMModel {
 
     // set information in our model
     //
-    boolean startTask(String name);
-    boolean stopTask(String name);
-    boolean describeTask(String name, String description);
-    boolean sizeTask(String name, String size);
-    boolean deleteTask(String name);
-    boolean renameTask(String oldName, String newName);
+    boolean startTask(String name); 							//X  //O
+    boolean stopTask(String name); 								//X	 //O	
+    boolean describeTask(String name, String description);		//X  //O
+    boolean sizeTask(String name, String size);					//X  //O
+    boolean deleteTask(String name);							//X
+    boolean renameTask(String oldName, String newName);			//X
 
     // return information about our tasks
     //
-    String taskElapsedTime(String name);
-    String taskSize(String name);
-    String taskDescription(String name);
+    String taskElapsedTime(String name);						//X
+    String taskSize(String name);								//X
+    String taskDescription(String name);						//X
 
     // return information about some tasks
     //
@@ -27,8 +27,8 @@ public interface ITMModel {
 
     // return information about all tasks
     //
-    String elapsedTimeForAllTasks();
-    Set<String> taskNames();
-    Set<String> taskSizes();
+    String elapsedTimeForAllTasks();					//X
+    Set<String> taskNames();							//X
+    Set<String> taskSizes();							//X
 
 }

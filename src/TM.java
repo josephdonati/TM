@@ -1,37 +1,30 @@
+import java.io.IOException;
+import java.util.Set;
+
 
 public class TM {
-	public static void main(String[] args) {
-		ITMModel tmModel = new TMModel();
+	public static void main(String[] args) throws IOException {
 		
-		// Declare variables
+		ITMModel tmModel = new TMModel();
 		String cmd;
 		String taskName;
-		String data1;// data2 = null;
+		String data1;
 		
-		// Create TaskLog to interact with persistent log
-		//TaskLog log = new TaskLog();
-		
-		// Create object to pull time codes
-		//LocalDateTime currentTime = LocalDateTime.now();
-		
-		// Rule out unacceptable usage, if incorrect display usage instructions
-		try {		
+		try {
+			// TODO DOUBLE CHECK THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			cmd = args[0];
 			if (args.length < 2)
 				taskName = null;
 			else 
 				taskName = args[1];
 			if (args[0].equals("describe") || args[0].equals("size")) {
-				data1 = args[2];
-//MIGHT NEED TO REMOVE vvvvvvv NO LONGER HAVE DESCRIPTION/SIZE
-//				if (args.length == 4)
-//					data2 = args[3];				
+				data1 = args[2];				
 			}
 			else 
 				data1 = null;		
 		}
 		catch (ArrayIndexOutOfBoundsException ex) {
-			// Usage instructions
+		
 			System.out.println("Usage:");
 			System.out.println("\tTM start <task name>");
 			System.out.println("\tTM stop <task name>");
@@ -59,23 +52,36 @@ public class TM {
 			case "rename": tmModel.sizeTask(taskName, data1);
 						break;			
 			case "summary": if (taskName == null)
-								summary();
-							else
-								summary(taskName);
-						break;
-		}	
+								summary(tmModel);
+							else {
+								summary(tmModel, taskName);
+								break;
+							}	
+		}
 	}
-
-	private static void summary(String taskName) {
-		// TODO Auto-generated method stub
-		System.out.println("HEERE1");
+	
+	public static void summary(ITMModel tmModel, String taskName) {
+		String str = ("\nSummary for task:\t| " + taskName +
+				"\nDescription:\t\t| " + tmModel.taskDescription(taskName) +
+				"\nSize:\t\t\t| " + tmModel.taskSize(taskName) +
+				"\nDuration\t\t| " + tmModel.taskElapsedTime(taskName));
+		System.out.println(str);
 	}
-
-	private static void summary() {
-		// TODO Auto-generated method stub
-		System.out.println("HEERE2");
-	}		
+	
+	public static void summary(ITMModel tmModel) {
+		Set<String> taskNames = tmModel.taskNames();
+		Set<String> taskSizes = tmModel.taskSizes();
+		//Set<String> namesForSizes = tmModel.taskNamesForSize(size); 
+		for (String name : taskNames) {
+			summary(tmModel, name);
+		}
+		String str = ("\nTotal Time:\t\t|" + tmModel.elapsedTimeForAllTasks() +
+					"\n");
+		System.out.println(str);
+	}
 }
+	
+
 
 
 

@@ -27,3 +27,9 @@
 2018-03-05T10:56:20.707/refactor/start
 2018-03-05T10:56:59.994/refactor/describe/Sprint 3: Dividing TM.java into TM and TMModel
 2018-03-05T11:01:44.687/refactor/describe/Implementing ITMModel
+2018-03-06T04:11:33.894/refactor/stop
+2018-03-06T04:11:38.628/refactor/start
+2018-03-06T04:11:44.013/refactor/stop
+2018-03-06T04:12:29.478/refactor/size/XXL
+2018-03-06T11:55:53.764/refactor/start
+2018-03-06T13:16:46.754/testing123/start

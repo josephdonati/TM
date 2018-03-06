@@ -1,8 +1,29 @@
-2018-02-12T10:52:10.082/testTask1/start
-2018-02-12T10:52:15.050/testTask2/start
-2018-02-12T10:52:23.119/testTask2/stop
-2018-02-12T10:52:35.485/Sprint1/start
-2018-02-12T10:53:21.450/Sprint1/describe/Finishing Sprint 1 to be able to work on Sprint 2
-2018-02-13T14:36:09.842/Sprint1/stop
-2018-02-13T14:36:17.810/Sprint1/start
-2018-02-13T14:36:19.652/Sprint1/stop
+2018-02-13T22:36:14.134/size/start
+2018-02-13T22:37:04.359/size/describe/Sprint 2: Adding tshirt size descriptor to TM
+2018-02-13T22:43:25.774/size/stop
+2018-02-13T22:43:37.437/fix1/start
+2018-02-13T22:44:14.867/fix1/describe/Fixing a small error from Sprint 1
+2018-02-13T22:59:13.170/fix1/stop
+2018-02-13T22:59:21.110/size/start
+2018-02-13T23:23:34.784/size/stop
+2018-02-14T10:17:23.433/size/start
+2018-02-14T11:12:55.559/size/stop
+2018-02-14T15:31:32.043/size/start
+2018-02-14T16:36:35.099/size/stop
+2018-02-14T16:37:57.747/fix1/size/S
+2018-02-14T16:38:24.606/size/size/L
+2018-02-14T16:44:36.498/descriptionExpand/start
+2018-02-14T16:56:03.470/descriptionExpand/describe/Sprint 2: Adding feature to allow expanded descriptions/M
+2018-02-14T16:56:32.909/descriptionExpand/stop
+2018-02-14T20:37:38.602/descriptionExpand/start
+2018-02-14T21:00:09.122/descriptionExpand/stop
+2018-02-14T21:00:49.662/size/size/XL
+2018-02-14T21:02:51.845/size/describe/Added new size command
+2018-02-14T21:03:27.866/size/describe/Modified describe command to also accept size
+2018-02-14T21:14:19.177/descriptionExpand/describe/Muliple description entries are now all displayed
+2018-02-14T21:16:41.569/codeCleanup/start
+2018-02-14T21:17:36.074/codeCleanup/describe/Commenting code, cleaning up notes, completing design document/S
+2018-02-14T22:18:43.740/codeCleanup/stop
+2018-03-05T10:56:20.707/refactor/start
+2018-03-05T10:56:59.994/refactor/describe/Sprint 3: Dividing TM.java into TM and TMModel
+2018-03-05T11:01:44.687/refactor/describe/Implementing ITMModel

@@ -62,9 +62,9 @@ public class TM {
 	
 	public static void summary(ITMModel tmModel, String taskName) {
 		String str = ("\nSummary for task:\t| " + taskName +
-				"\nDescription:\t\t| " + tmModel.taskDescription(taskName) +
 				"\nSize:\t\t\t| " + tmModel.taskSize(taskName) +
-				"\nDuration\t\t| " + tmModel.taskElapsedTime(taskName));
+				"\nDuration\t\t| " + tmModel.taskElapsedTime(taskName) +
+				"\nDescription:\n" + tmModel.taskDescription(taskName) );
 		System.out.println(str);
 	}
 	

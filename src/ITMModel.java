@@ -13,9 +13,9 @@ public interface ITMModel {
 
     // return information about our tasks
     //
-    String taskElapsedTime(String name);						//X
-    String taskSize(String name);								//X
-    String taskDescription(String name);						//X
+    String taskElapsedTime(String name);						//X  //O
+    String taskSize(String name);								//X  //O
+    String taskDescription(String name);						//X  //O
 
     // return information about some tasks
     //
@@ -27,8 +27,8 @@ public interface ITMModel {
 
     // return information about all tasks
     //
-    String elapsedTimeForAllTasks();					//X
-    Set<String> taskNames();							//X
-    Set<String> taskSizes();							//X
+    String elapsedTimeForAllTasks();							//X
+    Set<String> taskNames();									//X  //O
+    Set<String> taskSizes();									//X  
 
 }

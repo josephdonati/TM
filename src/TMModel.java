@@ -1,16 +1,31 @@
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 	
 
 public class TMModel implements ITMModel {
 	private TaskLog log;
-	private LocalDateTime currentTime; 
+	private LocalDateTime currentTime;
+	private LinkedList<TaskLogEntry> allLines;
+	private TreeSet<String> allNames;
+	private TreeSet<String> allSizes;
+	private long totalTime;
 	
 	public TMModel() throws IOException{
 		log = new TaskLog();
 		currentTime = LocalDateTime.now();
+		allLines = log.readFile();
+		allNames = new TreeSet<String>();
+		allSizes = new TreeSet<String>();
+		totalTime = 0;
+		for (TaskLogEntry entry : allLines){
+			allNames.add(entry.taskName);
+			if (entry.cmd.equals("size")) {
+				allSizes.add(entry.data1);
+			}
+		}
 	}
 	
 	
@@ -69,20 +84,20 @@ public class TMModel implements ITMModel {
 
 	@Override
 	public String taskElapsedTime(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		Task tasktToSummarize = new Task(name, allLines);
+		return tasktToSummarize.totalTime();
 	}
 
 	@Override
 	public String taskSize(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		Task tasktToSummarize = new Task(name, allLines);
+		return tasktToSummarize.shirtSize();
 	}
 
 	@Override
 	public String taskDescription(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		Task tasktToSummarize = new Task(name, allLines);
+		return tasktToSummarize.description();
 	}
 
 	@Override
@@ -111,20 +126,17 @@ public class TMModel implements ITMModel {
 
 	@Override
 	public String elapsedTimeForAllTasks() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Set<String> taskNames() {
-		// TODO Auto-generated method stub
-		return null;
+		return allNames;
 	}
 
 	@Override
 	public Set<String> taskSizes() {
-		// TODO Auto-generated method stub
-		return null;
+		return allSizes;
 	}
 	
 	/**
@@ -203,5 +215,103 @@ public class TMModel implements ITMModel {
 		String data2;
 		LocalDateTime timeStamp;
 		
+	}
+	
+	/**
+	 * The TimeUtilities class contains utilities for working with time related data
+	 */
+	static class TimeUtilities {
+		
+		/**
+		 * The secondsFormatter method converts seconds to the HH:MM:SS format
+		 * @param secondsToFormat The number of seconds to convert
+		 * @return String containing time in HH:MM:SS format
+		 */
+		 static String secondsFormatter(long secondsToFormat) {
+			
+			long hours = (secondsToFormat / 3600);
+			long minutes = ((secondsToFormat % 3600) / 60);
+			long seconds = (secondsToFormat % 60);
+			String formattedTime = (String.format("%02d:%02d:%02d", hours, minutes, seconds));
+			return formattedTime;
+			
+		}
+	}
+	
+	class Task {
+		// Each task can be identified by name
+		private String name;
+		private StringBuilder description = new StringBuilder("");
+		//private String description;
+		private String shirtSize;
+		private String formattedTime = null;
+		private long totalTime = 0;
+		
+		/**
+		 * Constructor runs and gathers all task data from log entries
+		 * @param name The name of the task
+		 * @param entries The list of entries in the log
+		 */
+		public Task(String name, LinkedList<TaskLogEntry> entries) {
+			// Initialize necessary variables 
+			this.name = name;
+			LocalDateTime lastStart = null;
+			long timeElapsed = 0;
+			
+			
+			for (TaskLogEntry entry : entries){
+				if (entry.taskName.equals(name)) {
+					switch (entry.cmd) {
+					case "start":
+						lastStart = entry.timeStamp;
+						break;
+					case "stop":
+						if (lastStart != null) 
+							timeElapsed += calculateDuration(lastStart, entry.timeStamp);
+						lastStart = null;
+						break;
+					case "describe": 
+						if (description.toString().equals(""))
+							description.append("--" + entry.data1);
+						else
+							description.append("\n--" + entry.data1);
+						
+						// Only update shirtSize if not empty to prevent unwanted update
+						if (entry.data2 != null)
+							shirtSize = entry.data2;
+						break;
+					case "size": 
+						shirtSize = entry.data1;
+					}
+				}
+			}
+			// Format the elapsed time, parse to String, store long time for cmdSummary
+			this.formattedTime = TimeUtilities.secondsFormatter(timeElapsed);
+			this.totalTime = timeElapsed;
+		}
+				
+		
+		public String totalTime(){
+			return this.formattedTime;
+		}
+		
+		public String shirtSize() {
+			return this.shirtSize;
+		}
+		
+		public String description() {
+			return this.description.toString();
+		}
+		
+		/**
+		 * The calculateDuration method calculates the duration between to LocalDateTime time stamps
+		 * @param startTime The start time
+		 * @param stopTime The start time
+		 * @return The number of seconds elapsed between start/stop stamps
+		 */
+		long calculateDuration(LocalDateTime startTime, LocalDateTime stopTime) {
+			long duration = ChronoUnit.SECONDS.between(startTime, stopTime);
+			return duration;
+		}
 	}
 }

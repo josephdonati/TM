@@ -31,3 +31,8 @@
 2018-03-05T23:01:13.731/refactor/start
 2018-03-06T13:19:57.987/testing123/start
 2018-03-06T13:20:04.575/testing123/stop
+2018-03-06T17:19:14.315/refactor/size/XXL
+2018-03-06T17:19:34.719/refactor/stop
+2018-03-06T17:19:46.453/refactor/start
+2018-03-06T17:19:50.783/refactor/stop
+2018-03-06T17:20:08.777/refactor/start

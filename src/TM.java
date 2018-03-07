@@ -64,7 +64,7 @@ public class TM {
 		String str = ("\nSummary for task:\t| " + taskName +
 				"\nSize:\t\t\t| " + tmModel.taskSize(taskName) +
 				"\nDuration\t\t| " + tmModel.taskElapsedTime(taskName) +
-				"\nDescription:\n" + tmModel.taskDescription(taskName) );
+				"\nDescription:\n" + tmModel.taskDescription(taskName) + "\n");
 		System.out.println(str);
 	}
 	
@@ -72,12 +72,25 @@ public class TM {
 		Set<String> taskNames = tmModel.taskNames();
 		Set<String> taskSizes = tmModel.taskSizes();
 		//Set<String> namesForSizes = tmModel.taskNamesForSize(size); 
+		System.out.println("\n--------------------------------------| TASK LOG |--------------------------------------");
 		for (String name : taskNames) {
 			summary(tmModel, name);
 		}
-		String str = ("\nTotal Time:\t\t|" + tmModel.elapsedTimeForAllTasks() +
+		System.out.println("-----------------------------------");
+		String str = ("Total Time:\t\t| " + tmModel.elapsedTimeForAllTasks() +
 					"\n");
 		System.out.println(str);
+		System.out.println("\n--------------------------------| TASK SIZE BREAKDOWN |---------------------------------");
+		for (String size : taskSizes) {
+			Set<String> taskNamesForSize = tmModel.taskNamesForSize(size);
+			if (taskNamesForSize.size() > 1) {
+				System.out.println("Size:\t\t\t| " + size);
+				System.out.println("Task Names:\t\t| " + taskNamesForSize);
+				System.out.println("Min time:\t\t| " + tmModel.minTimeForSize(size));
+				System.out.println("Avg time:\t\t| " + tmModel.avgTimeForSize(size));
+				System.out.println("Max time:\t\t| " + tmModel.maxTimeForSize(size) + "\n");
+			}
+		}
 	}
 }
 	

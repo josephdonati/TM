@@ -1,17 +1,16 @@
 import java.io.*;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-
-	
 
 public class TMModel implements ITMModel {
 	private TaskLog log;
 	private LocalDateTime currentTime;
 	private LinkedList<TaskLogEntry> allLines;
 	private TreeSet<String> allNames;
-	private TreeSet<String> allSizes;
+	private TreeSet<String> allSizes; 
 	private long totalTime;
+	
 	
 	public TMModel() throws IOException{
 		log = new TaskLog();
@@ -102,31 +101,60 @@ public class TMModel implements ITMModel {
 
 	@Override
 	public String minTimeForSize(String size) {
-		// TODO Auto-generated method stub
-		return null;
+		long minTime = Long.MAX_VALUE;
+		for (String taskName : allNames) {
+			Task taskForSizes = new Task(taskName, allLines);
+			if (taskForSizes.shirtSize.equals(size) && taskForSizes.totalTime < minTime)
+				minTime = taskForSizes.totalTime;
+		}
+		return TimeUtilities.secondsFormatter(minTime);
 	}
 
 	@Override
 	public String maxTimeForSize(String size) {
-		// TODO Auto-generated method stub
-		return null;
+		long maxTime = 0;
+		for (String taskName : allNames) {
+			Task taskForSizes = new Task(taskName, allLines);
+			if (taskForSizes.shirtSize.equals(size) && taskForSizes.totalTime > maxTime)
+				maxTime = taskForSizes.totalTime;
+		}
+		return TimeUtilities.secondsFormatter(maxTime);
 	}
 
 	@Override
 	public String avgTimeForSize(String size) {
-		// TODO Auto-generated method stub
-		return null;
+		long sumTime = 0;
+		int counter = 0;
+		for (String taskName : allNames) {
+			Task taskForSizes = new Task(taskName, allLines);
+			if (taskForSizes.shirtSize.equals(size)) { 
+				sumTime += taskForSizes.totalTime;
+				counter++;
+			}
+		}
+		sumTime /= counter;
+		return TimeUtilities.secondsFormatter(sumTime);
 	}
 
 	@Override
 	public Set<String> taskNamesForSize(String size) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> taskNamesForSize = new TreeSet<String>();
+		for (String taskName : allNames) {
+			Task taskForSizes = new Task(taskName, allLines);
+			if (taskForSizes.shirtSize.equals(size)) 
+				taskNamesForSize.add(taskName);
+		}
+		return taskNamesForSize;
 	}
 
 	@Override
 	public String elapsedTimeForAllTasks() {
-		return null;
+		long timeForAllTasks = 0;
+		for (String taskName : allNames){
+			Task taskToSummarize = new Task(taskName, allLines);
+			timeForAllTasks += taskToSummarize.totalTime;
+		}	
+		return TimeUtilities.secondsFormatter(timeForAllTasks);
 	}
 
 	@Override
@@ -239,10 +267,8 @@ public class TMModel implements ITMModel {
 	}
 	
 	class Task {
-		// Each task can be identified by name
 		private String name;
 		private StringBuilder description = new StringBuilder("");
-		//private String description;
 		private String shirtSize;
 		private String formattedTime = null;
 		private long totalTime = 0;
@@ -252,8 +278,7 @@ public class TMModel implements ITMModel {
 		 * @param name The name of the task
 		 * @param entries The list of entries in the log
 		 */
-		public Task(String name, LinkedList<TaskLogEntry> entries) {
-			// Initialize necessary variables 
+		public Task(String name, LinkedList<TaskLogEntry> entries) { 
 			this.name = name;
 			LocalDateTime lastStart = null;
 			long timeElapsed = 0;

@@ -33,3 +33,9 @@
 2018-03-06T04:12:29.478/refactor/size/XXL
 2018-03-06T11:55:53.764/refactor/start
 2018-03-06T13:16:46.754/testing123/start
+2018-03-06T23:08:19.744/refactor/stop
+2018-03-06T23:08:33.913/sizeStats/start
+2018-03-06T23:10:39.017/sizeStats/describe/Sprint 3: Adding feature to display Size statistics in overall summary
+2018-03-06T23:11:02.411/testing123/stop
+2018-03-06T23:11:22.887/testing123/size/M
+2018-03-06T23:11:51.011/testing123/size/XXL

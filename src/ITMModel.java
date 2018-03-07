@@ -19,16 +19,16 @@ public interface ITMModel {
 
     // return information about some tasks
     //
-    String minTimeForSize(String size);
-    String maxTimeForSize(String size);
-    String avgTimeForSize(String size);
+    String minTimeForSize(String size);							//X
+    String maxTimeForSize(String size);							//X
+    String avgTimeForSize(String size);							//X
 
-    Set<String> taskNamesForSize(String size);
+    Set<String> taskNamesForSize(String size);					//X  //O
 
     // return information about all tasks
     //
-    String elapsedTimeForAllTasks();							//X
+    String elapsedTimeForAllTasks();							//X  //O
     Set<String> taskNames();									//X  //O
-    Set<String> taskSizes();									//X  
+    Set<String> taskSizes();									//X  //O
 
 }

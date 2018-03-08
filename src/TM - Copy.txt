@@ -27,19 +27,19 @@
 2018-03-05T10:56:20.707/refactor/start
 2018-03-05T10:56:59.994/refactor/describe/Sprint 3: Dividing TM.java into TM and TMModel
 2018-03-05T11:01:44.687/refactor/describe/Implementing ITMModel
-2018-03-05T12:05:33.894/refactor/stop
-2018-03-06T03:11:38.628/refactor/start
-2018-03-06T03:41:44.013/refactor/stop
+2018-03-06T04:11:33.894/refactor/stop
+2018-03-06T04:11:38.628/refactor/start
+2018-03-06T04:11:44.013/refactor/stop
 2018-03-06T04:12:29.478/refactor/size/XXL
 2018-03-06T11:55:53.764/refactor/start
-2018-03-06T13:16:46.754/#PURGED#bugFix/start
-2018-03-06T13:08:19.744/refactor/stop
+2018-03-06T13:16:46.754/testing123/start
+2018-03-06T23:08:19.744/refactor/stop
 2018-03-06T23:08:33.913/sizeStats/start
 2018-03-06T23:10:39.017/sizeStats/describe/Sprint 3: Adding feature to display Size statistics in overall summary
-2018-03-06T23:11:02.411/#PURGED#bugFix/stop
-2018-03-06T23:11:22.887/#PURGED#bugFix/size/M
-2018-03-06T23:11:51.011/#PURGED#bugFix/size/XXL
-2018-03-07T01:01:12.184/sizeStats/stop
+2018-03-06T23:11:02.411/testing123/stop
+2018-03-06T23:11:22.887/testing123/size/M
+2018-03-06T23:11:51.011/testing123/size/XXL
+2018-03-07T13:04:12.184/sizeStats/stop
 2018-03-07T10:34:56.431/renameCMD/start
 2018-03-07T13:05:00.893/renameCMD/stop
 2018-03-07T13:06:28.971/renameCMD/describe/Sprint 3: Adding the ability to rename a task
@@ -50,8 +50,5 @@
 2018-03-07T18:34:47.554/deleteCMD/size/M
 2018-03-07T18:35:24.340/renameCMD/size/M
 2018-03-07T18:35:43.126/sizeStats/size/XL
-2018-03-07T18:38:01.032/#PURGED#bugFix/start
+2018-03-07T18:38:01.032/finalTest/start
 2018-03-07T20:26:46.680/codeCleanup2/start
-2018-03-07T21:06:11.842/renameCMD/size/L
-2018-03-07T21:08:12.238/codeCleanup2/describe/Sprint 3: Cleaning up code, finding/fixing bugs
-2018-03-07T21:09:11.156/codeCleanup2/size/S

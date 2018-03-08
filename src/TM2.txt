@@ -47,3 +47,6 @@
 2018-03-07T16:12:45.907/deleteCMD/start
 2018-03-07T16:13:22.083/deleteCMD/describe/Sprint 3: Adding command to delete tasks
 2018-03-07T16:59:29.105/deleteCMD/stop
+2018-03-07T18:34:47.554/deleteCMD/size/M
+2018-03-07T18:35:24.340/renameCMD/size/M
+2018-03-07T18:35:43.126/sizeStats/size/XL

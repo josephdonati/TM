@@ -78,7 +78,7 @@ public class TMModel implements ITMModel {
 				try {
 					for (String line : Files.readAllLines(Paths.get("TM.txt"), StandardCharsets.UTF_8)) {
 					    if (line.contains("/"+ name + "/")) {
-					       newLines.add(line.replace("/"+ name + "/", "/#PURGED#/"));
+					       newLines.add(line.replace("/"+ name + "/", "/#PURGED#" + name + "/"));
 					    } else {
 					       newLines.add(line);
 					    }
@@ -181,13 +181,14 @@ public class TMModel implements ITMModel {
 		Set<String> taskNamesForSize = new TreeSet<String>();
 		for (String taskName : allNames) {
 			
-			// Deals with deleted entries
-			//if (taskName.contains("#PURGED#")) 
-				//continue;
+			//Deals with deleted entries
+			if (taskName.contains("#PURGED#")) 
+				continue;
 			
 			Task taskForSizes = new Task(taskName, allLines);
 			if (taskForSizes.shirtSize.equals(size)) 
 				taskNamesForSize.add(taskName);
+			
 		}
 		return taskNamesForSize;
 	}
@@ -314,7 +315,7 @@ public class TMModel implements ITMModel {
 	
 	class Task {
 		private StringBuilder description = new StringBuilder("");
-		private String shirtSize;
+		private String shirtSize = "Unspecified";
 		private String formattedTime = null;
 		private long totalTime = 0;
 		

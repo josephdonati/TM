@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -9,7 +12,6 @@ public class TMModel implements ITMModel {
 	private LinkedList<TaskLogEntry> allLines;
 	private TreeSet<String> allNames;
 	private TreeSet<String> allSizes; 
-	private long totalTime;
 	
 	
 	public TMModel() throws IOException{
@@ -18,7 +20,6 @@ public class TMModel implements ITMModel {
 		allLines = log.readFile();
 		allNames = new TreeSet<String>();
 		allSizes = new TreeSet<String>();
-		totalTime = 0;
 		for (TaskLogEntry entry : allLines){
 			allNames.add(entry.taskName);
 			if (entry.cmd.equals("size")) {
@@ -77,8 +78,26 @@ public class TMModel implements ITMModel {
 
 	@Override
 	public boolean renameTask(String oldName, String newName) {
-		// TODO Auto-generated method stub
-		return false;
+		//Used method found at "https://stackoverflow.com/questions/8563294/modifying-existing-file-content-in-java"
+		List<String> newLines = new ArrayList<>();
+		try {
+			for (String line : Files.readAllLines(Paths.get("TM.txt"), StandardCharsets.UTF_8)) {
+			    if (line.contains("/"+ oldName + "/")) {
+			       newLines.add(line.replace("/"+ oldName + "/", "/"+ newName + "/"));
+			    } else {
+			       newLines.add(line);
+			    }
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			Files.write(Paths.get("TM.txt"), newLines, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+		return true;
 	}
 
 	@Override
@@ -204,6 +223,7 @@ public class TMModel implements ITMModel {
 			// Create LinkedList of TaskLogEntry objects to hold each entry in log file
 			LinkedList<TaskLogEntry> lineList = new LinkedList<TaskLogEntry>();
 			
+			
 			// Open file for reading
 			File logFile = new File("TM.txt");
 			Scanner inputFile = new Scanner(logFile);
@@ -222,6 +242,19 @@ public class TMModel implements ITMModel {
 					entry.data1 = st.nextToken();
 				if (st.hasMoreTokens())
 					entry.data2 = st.nextToken();
+				
+				/*/ Handling rename command
+				if (entry.cmd.equals("rename")) {
+					System.out.println("HHHHHERE IN DA IF");
+					ListIterator<TaskLogEntry> it = lineList.listIterator(lineList.size());
+					while (it.hasPrevious()) {
+						TaskLogEntry temp = (TaskLogEntry) it.previous();
+						if (temp.taskName.equals(entry.taskName)){
+							temp.taskName = entry.data2;
+							System.out.println("CHANGED");
+						}
+					}
+				}*/
 				
 				// Add entry to LinkedList
 				lineList.add(entry);
@@ -267,7 +300,6 @@ public class TMModel implements ITMModel {
 	}
 	
 	class Task {
-		private String name;
 		private StringBuilder description = new StringBuilder("");
 		private String shirtSize;
 		private String formattedTime = null;
@@ -279,7 +311,6 @@ public class TMModel implements ITMModel {
 		 * @param entries The list of entries in the log
 		 */
 		public Task(String name, LinkedList<TaskLogEntry> entries) { 
-			this.name = name;
 			LocalDateTime lastStart = null;
 			long timeElapsed = 0;
 			

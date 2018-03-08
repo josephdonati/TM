@@ -39,3 +39,8 @@
 2018-03-06T23:11:02.411/testing123/stop
 2018-03-06T23:11:22.887/testing123/size/M
 2018-03-06T23:11:51.011/testing123/size/XXL
+2018-03-07T13:04:12.184/sizeStats/stop
+2018-03-07T10:34:56.431/renameCMD/start
+2018-03-07T13:05:00.893/renameCMD/stop
+2018-03-07T13:06:28.971/renameCMD/describe/Sprint 3: Adding the ability to rename a task
+2018-03-07T13:06:54.545/renameCMD/describe/Wasted 2 hours on unsuccessful attempt

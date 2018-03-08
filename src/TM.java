@@ -17,7 +17,7 @@ public class TM {
 				taskName = null;
 			else 
 				taskName = args[1];
-			if (args[0].equals("describe") || args[0].equals("size")) {
+			if (args[0].equals("describe") || args[0].equals("size") || args[0].equals("rename")) {
 				data1 = args[2];				
 			}
 			else 
@@ -49,7 +49,7 @@ public class TM {
 						break;
 			case "delete": tmModel.deleteTask(taskName);
 						break;
-			case "rename": tmModel.sizeTask(taskName, data1);
+			case "rename": tmModel.renameTask(taskName, data1);
 						break;			
 			case "summary": if (taskName == null)
 								summary(tmModel);

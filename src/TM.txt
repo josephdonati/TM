@@ -55,3 +55,5 @@
 2018-03-07T21:06:11.842/renameCMD/size/L
 2018-03-07T21:08:12.238/codeCleanup2/describe/Sprint 3: Cleaning up code, finding/fixing bugs
 2018-03-07T21:09:11.156/codeCleanup2/size/S
+2018-03-07T21:51:37.335/codeCleanup2/stop
+2018-03-07T21:52:59.881/codeCleanup2/size/L

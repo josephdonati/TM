@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.Set;
 
-
 public class TM {
 	public static void main(String[] args) throws IOException {
 		
@@ -11,7 +10,6 @@ public class TM {
 		String data1;
 		
 		try {
-			// TODO DOUBLE CHECK THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			cmd = args[0];
 			if (args.length < 2)
 				taskName = null;
@@ -37,7 +35,6 @@ public class TM {
 			return;
 		}
 		
-		// switch to direct operation
 		switch (cmd) {
 			case "stop": tmModel.stopTask(taskName);
 						break;
@@ -71,7 +68,6 @@ public class TM {
 	public static void summary(ITMModel tmModel) {
 		Set<String> taskNames = tmModel.taskNames();
 		Set<String> taskSizes = tmModel.taskSizes();
-		//Set<String> namesForSizes = tmModel.taskNamesForSize(size); 
 		System.out.println("\n--------------------------------------| TASK LOG |--------------------------------------");
 		for (String name : taskNames) {
 			// Ignores deleted tasks

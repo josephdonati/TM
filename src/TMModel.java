@@ -34,30 +34,33 @@ public class TMModel implements ITMModel {
 	public boolean startTask(String name) {
 		try {
 			log.writeLine(currentTime + "/" + name + "/start");
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean stopTask(String name) {
 		try {
 			log.writeLine(currentTime + "/" + name + "/stop");
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean describeTask(String name, String description) {
 		try {
 			log.writeLine(currentTime + "/" + name + "/describe/" + description );
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	@Override
@@ -247,11 +250,7 @@ public class TMModel implements ITMModel {
 		 */
 		LinkedList<TaskLogEntry> readFile() throws FileNotFoundException {
 			
-			// Create LinkedList of TaskLogEntry objects to hold each entry in log file
 			LinkedList<TaskLogEntry> lineList = new LinkedList<TaskLogEntry>();
-			
-			
-			// Open file for reading
 			File logFile = new File("TM.txt");
 			Scanner inputFile = new Scanner(logFile);
 			
@@ -264,7 +263,7 @@ public class TMModel implements ITMModel {
 				entry.timeStamp = LocalDateTime.parse(st.nextToken());
 				entry.taskName = st.nextToken();
 				entry.cmd = st.nextToken();
-				// If cmd is describe, data is description, if cmd is size, data is size.
+				
 				if (st.hasMoreTokens())
 					entry.data1 = st.nextToken();
 				if (st.hasMoreTokens())
@@ -274,7 +273,6 @@ public class TMModel implements ITMModel {
 				lineList.add(entry);
 			}
 			
-			// Close Scanner and return LinkedList
 			inputFile.close();
 			return lineList;
 		}

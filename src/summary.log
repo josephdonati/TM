@@ -2,27 +2,99 @@
 --------------------------------------| TASK LOG |--------------------------------------
 
 Summary for task:	| codeCleanup
-Description:		| Commenting code, cleaning up notes, completing design document
 Size:			| S
 Duration		| 01:02:02
+Description:
+--Commenting code, cleaning up notes, completing design document
+
+
+Summary for task:	| codeCleanup2
+Size:			| L
+Duration		| 01:24:50
+Description:
+--Sprint 3: Cleaning up code, finding
+
+
+Summary for task:	| deleteCMD
+Size:			| M
+Duration		| 00:46:43
+Description:
+--Sprint 3: Adding command to delete tasks
+
 
 Summary for task:	| descriptionExpand
-Description:		| Sprint 2: Adding feature to allow expanded descriptions
-			| Muliple description entries are now all displayed
 Size:			| M
 Duration		| 00:34:26
+Description:
+--Sprint 2: Adding feature to allow expanded descriptions
+--Muliple description entries are now all displayed
+
 
 Summary for task:	| fix1
-Description:		| Fixing a small error from Sprint 1
 Size:			| S
 Duration		| 00:15:35
+Description:
+--Fixing a small error from Sprint 1
+
+
+Summary for task:	| refactor
+Size:			| XXL
+Duration		| 02:51:43
+Description:
+--Sprint 3: Dividing TM.java into TM and TMModel
+--Implementing ITMModel
+
+
+Summary for task:	| renameCMD
+Size:			| L
+Duration		| 02:30:04
+Description:
+--Sprint 3: Adding the ability to rename a task
+--Wasted 2 hours on unsuccessful attempt
+
 
 Summary for task:	| size
-Description:		| Sprint 2: Adding tshirt size descriptor to TM
-			| Added new size command
-			| Modified describe command to also accept size
 Size:			| XL
 Duration		| 02:31:59
+Description:
+--Sprint 2: Adding tshirt size descriptor to TM
+--Added new size command
+--Modified describe command to also accept size
 
----------------------------------------------------------------------------------------- 
-Total time		|04:24:02
+
+Summary for task:	| sizeStats
+Size:			| XL
+Duration		| 01:52:38
+Description:
+--Sprint 3: Adding feature to display Size statistics in overall summary
+
+-----------------------------------
+Total Time:		| 23:44:15
+
+
+--------------------------------| TASK SIZE BREAKDOWN |---------------------------------
+Size:			| L
+Task Names:		| [codeCleanup2, renameCMD]
+Min time:		| 01:24:50
+Avg time:		| 01:57:27
+Max time:		| 02:30:04
+
+Size:			| M
+Task Names:		| [deleteCMD, descriptionExpand]
+Min time:		| 00:34:26
+Avg time:		| 00:40:34
+Max time:		| 00:46:43
+
+Size:			| S
+Task Names:		| [codeCleanup, fix1]
+Min time:		| 00:15:35
+Avg time:		| 00:38:48
+Max time:		| 01:02:02
+
+Size:			| XL
+Task Names:		| [size, sizeStats]
+Min time:		| 01:52:38
+Avg time:		| 02:12:18
+Max time:		| 02:31:59
+
+------------------------------------| END TASK LOG |------------------------------------

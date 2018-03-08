@@ -64,16 +64,36 @@ public class TMModel implements ITMModel {
 	public boolean sizeTask(String name, String size) {
 		try {
 			log.writeLine(currentTime + "/" + name + "/size/" + size );
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean deleteTask(String name) {
-		// TODO Auto-generated method stub
-		return false;
+		//Used method found at "https://stackoverflow.com/questions/8563294/modifying-existing-file-content-in-java"
+				List<String> newLines = new ArrayList<>();
+				try {
+					for (String line : Files.readAllLines(Paths.get("TM.txt"), StandardCharsets.UTF_8)) {
+					    if (line.contains("/"+ name + "/")) {
+					       newLines.add(line.replace("/"+ name + "/", "/#PURGED#/"));
+					    } else {
+					       newLines.add(line);
+					    }
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				try {
+					Files.write(Paths.get("TM.txt"), newLines, StandardCharsets.UTF_8);
+					return true;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+					
+				return false;
 	}
 
 	@Override
@@ -93,11 +113,12 @@ public class TMModel implements ITMModel {
 		}
 		try {
 			Files.write(Paths.get("TM.txt"), newLines, StandardCharsets.UTF_8);
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 			
-		return true;
+		return false;
 	}
 
 	@Override
@@ -159,6 +180,11 @@ public class TMModel implements ITMModel {
 	public Set<String> taskNamesForSize(String size) {
 		Set<String> taskNamesForSize = new TreeSet<String>();
 		for (String taskName : allNames) {
+			
+			// Deals with deleted entries
+			//if (taskName.contains("#PURGED#")) 
+				//continue;
+			
 			Task taskForSizes = new Task(taskName, allLines);
 			if (taskForSizes.shirtSize.equals(size)) 
 				taskNamesForSize.add(taskName);
@@ -242,19 +268,6 @@ public class TMModel implements ITMModel {
 					entry.data1 = st.nextToken();
 				if (st.hasMoreTokens())
 					entry.data2 = st.nextToken();
-				
-				/*/ Handling rename command
-				if (entry.cmd.equals("rename")) {
-					System.out.println("HHHHHERE IN DA IF");
-					ListIterator<TaskLogEntry> it = lineList.listIterator(lineList.size());
-					while (it.hasPrevious()) {
-						TaskLogEntry temp = (TaskLogEntry) it.previous();
-						if (temp.taskName.equals(entry.taskName)){
-							temp.taskName = entry.data2;
-							System.out.println("CHANGED");
-						}
-					}
-				}*/
 				
 				// Add entry to LinkedList
 				lineList.add(entry);

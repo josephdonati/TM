@@ -74,6 +74,10 @@ public class TM {
 		//Set<String> namesForSizes = tmModel.taskNamesForSize(size); 
 		System.out.println("\n--------------------------------------| TASK LOG |--------------------------------------");
 		for (String name : taskNames) {
+			// Ignores deleted tasks
+			if (name.contains("#PURGED#"))
+				continue;
+			
 			summary(tmModel, name);
 		}
 		System.out.println("-----------------------------------");
@@ -91,6 +95,7 @@ public class TM {
 				System.out.println("Max time:\t\t| " + tmModel.maxTimeForSize(size) + "\n");
 			}
 		}
+		System.out.println("------------------------------------| END TASK LOG |------------------------------------");
 	}
 }
 	
